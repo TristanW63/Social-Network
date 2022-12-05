@@ -42,7 +42,7 @@ userSchema
     return this.friends.length;
  });
 
- const User = model('user', userSchema);
+ const Users = model('users', userSchema);
 
- module.exports = User;
+ module.exports = Users;
 
