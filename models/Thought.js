@@ -6,7 +6,7 @@ const reactionSchema = new Schema({
     reactionBody: { type: String, required: true, maxLength: 280},
     username: { type: String, required: true},
     createdAt: { type: Date, default: Date.now, formatdate}
-})
+});
 
 const thoughtSchema = new Schema(
     {
@@ -19,8 +19,10 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            //format date somehow var date = new Date();
-            //date.toDateString();
+            get: (timeStamp) =>  {
+                var date = new Date(timeStamp);
+                return date.toDateString();
+            }
         },
         username: {
             type: String,
