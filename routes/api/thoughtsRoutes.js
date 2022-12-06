@@ -6,12 +6,12 @@ const {
     createThought,
     updateThought,
     deleteThought,
-} = require('../../controllers/');
+} = require('../../controllers/thoughtsController');
 
-router.route('/').get(getUsers).post(createUser);
+router.route('/').get(getThoughts).post(createThought);
 
 router
-    .route('/:userId')
+    .route('/:thoughtId')
     .get(getSingleUser)
     .put(updateUser)
     .delete(deleteUSer);
