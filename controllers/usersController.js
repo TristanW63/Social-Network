@@ -10,7 +10,7 @@ module.exports = {
     },
     // Get single user 
     getSingleUser(req,res) {
-        Users.findOne({_id: req.params.userId })
+        Users.findOne({ _id: req.params.userId })
 
     }
 }
