@@ -9,6 +9,7 @@ module.exports = {
 
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
+    .populate('reactions')
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: "No thought with that ID" })
@@ -62,7 +63,7 @@ module.exports = {
         !thought
           ? res.status(404).json({ message: "No thought with this id!" })
           : Users.findOneAndUpdate(
-              { applications: req.params.thoughtId },
+              { thoughts: req.params.thoughtId },
               { $pull: { thoughts: req.params.thoughtId } },
               { new: true }
             )
