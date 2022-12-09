@@ -1,4 +1,5 @@
 const { Users, Thought } = require("../models");
+const { json } = require("express");
 
 module.exports = {
   //Get all Users
@@ -9,10 +10,10 @@ module.exports = {
   },
   // Get single user
   getSingleUser(req, res) {
-    Users.findOne({ _id: req.params.usersId })
+    Users.findOne({_id: req.params.userId})
     .populate("thoughts")
-    .then((users) => 
-    !users
+    .then((userData) => 
+    !userData
     ? res.status(404).json({message: 'No user found with ID'})
     : res.json(userData)
     )
@@ -53,20 +54,18 @@ module.exports = {
   },
 
   addFriend(req, res) {
-    console.log('You are adding a friend');
-    console.log(req.body);
     Users.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $addToSet: { friends: req.params.friendId } },
-      { new: true }
+        {_id: req.params.userId},
+        {$addToSet: {friends: req.params.friendId}},
+        {new: true}
     )
-    .then((user) =>
-    !user
-    ? res.status(404).json({ message: 'No friend found with that ID'})
-    : res.json(user)
+    .then((userData) => 
+    !userData
+    ? res.status(404).json({message: 'No friend with ID'})
+    : res.json(userData)
     )
     .catch((err) => res.status(500).json(err));
-  },
+},
 
   removeFriend(req, res) {
     console.log('You deleted a friend');
