@@ -32,7 +32,7 @@ module.exports = {
           ? res.status(404).json({
               message: "Thought created, but found no user with that ID",
             })
-          : res.json("Created the application")
+          : res.json("Created the thought")
       )
       .catch((err) => {
         console.log(err);
@@ -82,12 +82,12 @@ module.exports = {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $addToSet: { reactions: req.body } },
-      { runValidators: true, new: true }
+      { new: true }
     )
-      .then((thought) =>
-        !thought
+      .then((thoughts) =>
+        !thoughts
           ? res.status(404).json({ message: "No thought with this id!" })
-          : res.json(thought)
+          : res.json(thoughts)
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -98,10 +98,10 @@ module.exports = {
       { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
-      .then((thought) =>
-        !thought
+      .then((thoughts) =>
+        !thoughts
           ? res.status(404).json({ message: "No thought with this id!" })
-          : res.json(thought)
+          : res.json(thoughts)
       )
       .catch((err) => res.status(500).json(err));
   },
